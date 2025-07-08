@@ -50,18 +50,6 @@ const mockAlerts: Alert[] = [
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true)
-  const [lastUpdate, setLastUpdate] = useState(2)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000)
-    const interval = setInterval(() => {
-      setLastUpdate((prev) => (prev >= 60 ? 1 : prev + 1))
-    }, 1000)
-    return () => {
-      clearTimeout(timer)
-      clearInterval(interval)
-    }
-  }, [])
 
   return (
     <div className="bg-black text-white min-h-screen">

@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 
 export default function Home() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<null | { email: string }>(null)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }: { data: { session: import('@supabase/supabase-js').Session | null } }) => {
-      setUser(data.session?.user || null)
+      setUser(data.session?.user && data.session.user.email ? { email: data.session.user.email } : null)
     })
 
     const { data: listener } = supabase.auth.onAuthStateChange(
@@ -16,7 +16,7 @@ export default function Home() {
         _event: import('@supabase/supabase-js').AuthChangeEvent,
         session: import('@supabase/supabase-js').Session | null
       ) => {
-        setUser(session?.user || null)
+        setUser(session?.user && session.user.email ? { email: session.user.email } : null)
       }
     )
 
