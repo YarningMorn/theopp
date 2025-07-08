@@ -7,13 +7,18 @@ export default function Home() {
   const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user || null)
+    supabase.auth.getSession().then(({ data }: { data: { session: import('@supabase/supabase-js').Session | null } }) => {
+      setUser(data.session?.user || null)
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null)
-    })
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (
+        _event: import('@supabase/supabase-js').AuthChangeEvent,
+        session: import('@supabase/supabase-js').Session | null
+      ) => {
+        setUser(session?.user || null)
+      }
+    )
 
     return () => {
       listener.subscription.unsubscribe()
