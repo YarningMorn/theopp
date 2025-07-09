@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 type Impact = {
   symbol: string
   direction: 'up' | 'down'
@@ -49,6 +47,7 @@ const mockAlerts: Alert[] = [
 ]
 
 export default function Dashboard() {
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="bg-black text-white min-h-screen">
