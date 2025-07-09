@@ -49,7 +49,6 @@ const mockAlerts: Alert[] = [
 ]
 
 export default function Dashboard() {
-  const [loading, setLoading] = useState(true)
 
   return (
     <div className="bg-black text-white min-h-screen">
